@@ -18,9 +18,9 @@ class Bootstrap implements BootstrapInterface
         $statisticsRoute = isset($app->params['statistics']['statisticsRoute']) ? $app->params['statistics']['statisticsRoute'] : 'statistics';
 
         $app->getUrlManager()->addRules([
-            $statisticsRoute => 'statistic/statistics/index',
-            'statistics/remove' => 'statistic/statistics/remove',
-            'statistics/show' => 'statistic/statistics/show',
+            $statisticsRoute => 'statistics/statistics/index',
+            'statistics/remove' => 'statistics/statistics/remove',
+            'statistics/show' => 'statistics/statistics/show',
         ], false);
 
         $app->setModule('statistics', 'vladbara705\statistics\Module');
