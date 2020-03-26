@@ -76,17 +76,17 @@ class StatisticsController extends Controller
      */
     public function actionShow()
     {
+        Yii::$app->assetManager->bundles = [
+            'yii\bootstrap\BootstrapPluginAsset' => false,
+            'yii\bootstrap\BootstrapAsset' => false,
+            'yii\web\JqueryAsset' => false,
+            'wdmg\widgets\ChartJSAsset' => false
+        ];
+        
         try {
             $request = Yii::$app->request->get();
-            $statistic = Statistic::getStatisticByType($request);
-            !empty($statistic) ? $groupedStatistics[current($statistic)['type']] = $statistic : $groupedStatistics = null;
-
-            Yii::$app->assetManager->bundles = [
-                'yii\bootstrap\BootstrapPluginAsset' => false,
-                'yii\bootstrap\BootstrapAsset' => false,
-                'yii\web\JqueryAsset' => false,
-                'wdmg\widgets\ChartJSAsset' => false
-            ];
+            $statistics = Statistic::getStatisticsByType($request);
+            !empty($statistics) ? $groupedStatistics[current($statistics)['type']] = $statistics : $groupedStatistics = null;
 
             return [
                 'success' => true,

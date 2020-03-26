@@ -6,6 +6,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\db\Query as DbQuery;
+use Yii;
 
 /**
  * Class Statistic
@@ -46,9 +47,9 @@ class Statistic extends ActiveRecord
      * @param $ip
      * @return bool
      */
-    public static function findByIp($ip, $timezone = 0)
+    public static function findByIp($ip)
     {
-        $prepareTimezone = '+ INTERVAL ' . $timezone . ' HOUR';
+        $prepareTimezone = '+ INTERVAL ' . self::getParams()['timezoneUTC'] . ' HOUR';
         return self::find()
             ->where(['=', 'ip', $ip])
             ->andWhere(['=', 'DATE_FORMAT(datetime ' . $prepareTimezone . ', \'%Y:%m:%d\')', date('Y:m:d')])
@@ -59,9 +60,9 @@ class Statistic extends ActiveRecord
      * @param int $timezone
      * @return array
      */
-    public static function getAll($timezone = 0)
+    public static function getAll()
     {
-        $prepareTimezone = '+ INTERVAL ' . $timezone . ' HOUR';
+        $prepareTimezone = '+ INTERVAL ' . self::getParams()['timezoneUTC'] . ' HOUR';
         
         $query = new DbQuery();
         $query->select([
@@ -69,7 +70,7 @@ class Statistic extends ActiveRecord
             'count(*) count',
             'type',
             'extraType',
-            'DATE_FORMAT(datetime, \'%Y-%m-%d\') datetime',
+            'DATE_FORMAT(datetime' . $prepareTimezone . ', \'%Y-%m-%d\') datetime',
             'DATE_FORMAT(NOW() - INTERVAL if(extraType IS NULL, 1, 0) DAY' . $prepareTimezone . ' , \'%Y-%m-%d\') toDate',
             'DATE_FORMAT(NOW() ' . $prepareTimezone . ' , \'%Y-%m-%d\') fromDate'
         ]);
@@ -78,7 +79,7 @@ class Statistic extends ActiveRecord
             new Expression('DATE_FORMAT(NOW() - INTERVAL if(extraType IS NULL, 1, 0) DAY, \'%Y:%m:%d\')'),
             new Expression('DATE_FORMAT(NOW(), \'%Y:%m:%d %H:%i:%s\')')
         ]);
-        $query->groupBy(new Expression('type, if(extraType IS NULL, DATE_FORMAT(datetime , \'%Y:%m:%d\'), extraType)'));
+        $query->groupBy(new Expression('type, if(extraType IS NULL, DATE_FORMAT(datetime' . $prepareTimezone . '  , \'%Y:%m:%d\'), extraType)'));
         return $query->all();
     }
 
@@ -87,15 +88,15 @@ class Statistic extends ActiveRecord
      * @param int $timezone
      * @return array
      */
-    public static function getStatisticByType($request, $timezone = 0)
+    public static function getStatisticsByType($request)
     {
-        $prepareTimezone = '+ INTERVAL ' . $timezone . ' HOUR';
+        $prepareTimezone = '+ INTERVAL ' . self::getParams()['timezoneUTC'] . ' HOUR';
         $query = new DbQuery();
         $query->select([
             new Expression('@i:=@i+1 id'),
             'count(*) count',
             'type',
-            'DATE_FORMAT(datetime, \'%Y-%m-%d\') datetime',
+            'DATE_FORMAT(datetime ' . $prepareTimezone . ' , \'%Y-%m-%d\') datetime',
             'extraType'
         ]);
         $query->from(['{{%statistic}}', '(SELECT @i:=0) x']);
@@ -111,8 +112,24 @@ class Statistic extends ActiveRecord
                 new Expression('DATE_FORMAT(NOW(), \'%Y:%m:%d %H:%i:%s\')')
             ]);
         }
-        $query->groupBy(new Expression('type, if(extraType IS NULL, DATE_FORMAT(datetime , \'%Y:%m:%d\'), extraType)'));
+        $query->groupBy(new Expression('type, if(extraType IS NULL, DATE_FORMAT(datetime' . $prepareTimezone . ' , \'%Y:%m:%d\'), extraType)'));
         return $query->all();
+    }
+
+    /**
+     * @return array
+     */
+    public static function getParams()
+    {
+        $params = isset(Yii::$app->params['statistics']) ? Yii::$app->params['statistics'] : null;
+        
+        return [
+            'blackListIp' => isset($params['blackListIp']) ? $params['blackListIp'] : null,
+            'trackRobots' => isset($params['trackRobots']) ? $params['trackRobots'] : false,
+            'authentication' => isset($params['authentication']) ? $params['authentication'] : false,
+            'authData' => isset($params['authData']) ? $params['authData'] : null,
+            'timezoneUTC' => isset($params['timezoneUTC']) ? $params['timezoneUTC'] : 0,
+        ];
     }
 }
 

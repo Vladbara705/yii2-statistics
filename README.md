@@ -56,7 +56,9 @@ $ php yii migrate --migrationPath=@vendor/vladbara705/yii2-statistics/src/migrat
         'trackRobots' => true, // по умолчанию false
         'statisticsRoute' => 'statistics/test', // по умолчанию statistics
         'authData' => ['admin' => 'admin'], // по умолачнию null, если не указано 'authentication' => true - авторизация работать не будет
-        'authentication' => true // по умолчанию false
+        'authentication' => true, // по умолчанию false
+        'timezoneUTC' => 5 // смещение времени в часах, требуется, что-бы показыввать статистику в соответствующем часовом поясе, по умолчанию 0
+        // для корректной работы смещения времени предполагается, что время на сервере и в БД установлено по UTC.
     ],
 ...
 ``` 

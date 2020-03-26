@@ -19,18 +19,6 @@ class Statistics extends Behavior
 
     public $uniqueUser;
 
-    private $params;
-
-    /**
-     * Statistics constructor.
-     * @param array $config
-     */
-    public function __construct($config = [])
-    {
-        parent::__construct($config);
-        $this->params = isset(Yii::$app->params['statistics']) ? Yii::$app->params['statistics'] : null;
-    }
-
     /**
      * @return array
      */
@@ -53,7 +41,7 @@ class Statistics extends Behavior
             return false;
         }
 
-        $params = $this->getParams();
+        $params = Statistic::getParams();
         $userIp = Yii::$app->request->userIP;
         if (is_array($params['blackListIp']) && in_array($userIp, $params['blackListIp'])) return false;
 
@@ -78,17 +66,6 @@ class Statistics extends Behavior
         $model->extraType = $extraType;
         $model->isRobot = $isRobot;
         $model->save();
-    }
-
-    /**
-     * @return array
-     */
-    private function getParams()
-    {
-        return [
-            'blackListIp' => isset($this->params['blackListIp']) ? $this->params['blackListIp'] : null,
-            'trackRobots' => isset($this->params['trackRobots']) ? $this->params['trackRobots'] : false,
-        ];
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace vladbara705\statistics\behaviors;
 
+use vladbara705\statistics\models\Statistic;
 use yii\base\Behavior;
 use yii\web\Controller;
 use Yii;
@@ -12,18 +13,6 @@ use Yii;
  */
 class BasicAuth extends Behavior
 {
-    private $params;
-
-    /**
-     * BasicAuth constructor.
-     * @param array $config
-     */
-    public function __construct($config = [])
-    {
-        parent::__construct($config);
-        $this->params = isset(Yii::$app->params['statistics']) ? Yii::$app->params['statistics'] : null;
-    }
-
     /**
      * @return array
      */
@@ -39,8 +28,9 @@ class BasicAuth extends Behavior
      */
     public function onBeforeAction()
     {
-        $authentication = isset($this->params['authentication']) ? $this->params['authentication'] : false;
-        $authData = isset($this->params['authData']) ? $this->params['authData'] : null;
+        $params = Statistic::getParams();
+        $authentication = $params['authentication'];
+        $authData = $params['authData'];
         if (empty($authentication)) {
             return true;
         } elseif (!empty($authentication) && empty($authData)) {
