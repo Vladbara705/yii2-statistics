@@ -1,6 +1,6 @@
 <?php
 
-namespace vladbara705\statistic\behaviors;
+namespace vladbara705\statistics\behaviors;
 
 use yii\base\Behavior;
 use yii\web\Controller;
@@ -8,7 +8,7 @@ use Yii;
 
 /**
  * Class BasicAuth
- * @package vladbara705\statistic\behaviors
+ * @package vladbara705\statistics\behaviors
  */
 class BasicAuth extends Behavior
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace vladbara705\statistic\commands;
+namespace vladbara705\statistics\commands;
 
 use Yii;
 use yii\console\Controller;
@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
 
 /**
  * Class InitController
- * @package vladbara705\statistic\commands
+ * @package vladbara705\statistics\commands
  */
 class InitController extends Controller
 {
@@ -61,9 +61,9 @@ class InitController extends Controller
             $selected = trim(fgets(STDIN));
 
         if ($selected == "1") {
-            Yii::$app->runAction('migrate/up', ['migrationPath' => '@vendor/vladbara705/yii2-statistic/src/migrations', 'interactive' => true]);
+            Yii::$app->runAction('migrate/up', ['migrationPath' => '@vendor/vladbara705/yii2-statistics/src/migrations', 'interactive' => true]);
         } else if($selected == "2") {
-            Yii::$app->runAction('migrate/down', ['migrationPath' => '@vendor/vladbara705/yii2-statistic/src/migrations', 'interactive' => true]);
+            Yii::$app->runAction('migrate/down', ['migrationPath' => '@vendor/vladbara705/yii2-statistics/src/migrations', 'interactive' => true]);
         } else {
             echo $this->ansiFormat("Error! Your selection has not been recognized.\n\n", Console::FG_RED);
             return ExitCode::UNSPECIFIED_ERROR;

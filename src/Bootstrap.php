@@ -1,9 +1,13 @@
 <?php
 
-namespace vladbara705\statistic;
+namespace vladbara705\statistics;
 
 use yii\base\BootstrapInterface;
 
+/**
+ * Class Bootstrap
+ * @package vladbara705\statistics
+ */
 class Bootstrap implements BootstrapInterface
 {
     /**
@@ -19,6 +23,6 @@ class Bootstrap implements BootstrapInterface
             'statistics/show' => 'statistic/statistics/show',
         ], false);
 
-        $app->setModule('statistic', 'vladbara705\statistic\Module');
+        $app->setModule('statistic', 'vladbara705\statistics\Module');
     }
 }

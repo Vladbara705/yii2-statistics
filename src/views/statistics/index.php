@@ -2,7 +2,7 @@
 
 /* @var $statistics */
 
-\vladbara705\statistic\AssetsBundle::register($this);
+\vladbara705\statistics\AssetsBundle::register($this);
 
 $this->params['breadcrumbs'][] = 'Статистика';
 $this->params['breadcrumbs'][] = $this->title;

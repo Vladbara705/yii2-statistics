@@ -1,16 +1,16 @@
 <?php
 
-namespace vladbara705\statistic\controllers;
+namespace vladbara705\statistics\controllers;
 
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
-use \vladbara705\statistic\models\Statistic;
+use \vladbara705\statistics\models\Statistic;
 
 /**
  * Class StatisticsController
- * @package vladbara705\statistic\controllers
+ * @package vladbara705\statistics\controllers
  */
 class StatisticsController extends Controller
 {
@@ -22,7 +22,7 @@ class StatisticsController extends Controller
         $behaviors = parent::behaviors();
 
         $behaviors['basicAuth'] = [
-            'class' => \vladbara705\statistic\behaviors\BasicAuth::class
+            'class' => \vladbara705\statistics\behaviors\BasicAuth::class
         ];
 
         return $behaviors;

@@ -1,17 +1,17 @@
 {
-    "name": "vladbara705/yii2-statistic",
+    "name": "vladbara705/yii2-statistics",
     "description": "Package",
     "type": "yii2-extension",
     "keywords": [
         "yii2",
-        "statistic"
+        "statistics"
     ],
     "license": "MIT",
     "authors": [
         {
             "name": "Vlad",
             "email": "vladbara705@gmail.com",
-            "homepage": "https://github.com/vladbara705/yii2-statistic",
+            "homepage": "https://github.com/vladbara705/yii2-statistics",
             "role": "Developer"
         }
     ],
@@ -21,11 +21,11 @@
         "wdmg/yii2-chartjs": "^1.0.4"
     },
     "extra": {
-        "bootstrap": "vladbara705\\statistic\\Bootstrap",
+        "bootstrap": "vladbara705\\statistics\\Bootstrap"
     },
     "autoload": {
         "psr-4": {
-            "vladbara705\\statistic\\": "src"
+            "vladbara705\\statistics\\": "src"
         }
     }
 }

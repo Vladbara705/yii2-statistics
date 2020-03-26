@@ -1,15 +1,15 @@
 <?php
 
-namespace vladbara705\statistic\behaviors;
+namespace vladbara705\statistics\behaviors;
 
-use vladbara705\statistic\models\Statistic;
+use vladbara705\statistics\models\Statistic;
 use Yii;
 use yii\base\Behavior;
 use yii\web\Controller;
 
 /**
  * Class Statistics
- * @package vladbara705\statistic
+ * @package vladbara705\statistics\behaviors
  */
 class Statistics extends Behavior
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace vladbara705\statistic;
+namespace vladbara705\statistics;
 
 use yii\web\AssetBundle;
 
 class AssetsBundle extends AssetBundle
 {
     /** @var string  */
-    public $sourcePath = '@vendor/vladbara705/yii2-statistic/assets';
+    public $sourcePath = '@vendor/vladbara705/yii2-statistics/assets';
 
     /** @var array  */
     public $css = [

@@ -1,17 +1,17 @@
 <?php
 
-namespace vladbara705\statistic;
+namespace vladbara705\statistics;
 
 use Yii;
 use yii\base\Module as BaseModule;
 
 /**
  * Class Module
- * @package vladbara705\statistic
+ * @package vladbara705\statistics
  */
 class Module extends BaseModule
 {
-    public $controllerNamespace = 'vladbara705\statistic\controllers';
+    public $controllerNamespace = 'vladbara705\statistics\controllers';
 
     public function init()
     {

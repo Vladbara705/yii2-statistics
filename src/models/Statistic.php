@@ -1,6 +1,6 @@
 <?php
 
-namespace vladbara705\statistic\models;
+namespace vladbara705\statistics\models;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -9,7 +9,7 @@ use yii\db\Query as DbQuery;
 
 /**
  * Class Statistic
- * @package vladbara705\statistic\models
+ * @package vladbara705\statistics\models
  */
 class Statistic extends ActiveRecord
 {
