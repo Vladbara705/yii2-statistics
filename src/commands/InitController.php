@@ -46,8 +46,8 @@ class InitController extends Controller
         $welcome =
             '╔═════════════════════════════════════════════════╗'. "\n" .
             '║                                                 ║'. "\n" .
-            '║ STATISTIC MODULE, v.'.$version.' by VLADBARA705 ║'. "\n" .
-            '║                                                 ║'. "\n" .
+            '║ STATISTIC MODULE, v.'.$version.'                         ║'. "\n" .
+            '║  by VLADBARA705                                 ║'. "\n" .
             '╚═════════════════════════════════════════════════╝';
         echo $name = $this->ansiFormat($welcome . "\n\n", Console::FG_GREEN);
         echo "Select the operation you want to perform:\n";

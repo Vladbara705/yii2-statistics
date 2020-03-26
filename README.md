@@ -41,7 +41,7 @@ $ php yii statistics/init
 
 В любом случае вы можете выполнить миграцию, выполнив в консоли следующую команду:
 ```
-$ php yii migrate --migrationPath=@vendor/vladbara705/yii2-statistics/migrations
+$ php yii migrate --migrationPath=@vendor/vladbara705/yii2-statistics/src/migrations
 ```
 
 Использование

@@ -23,6 +23,6 @@ class Bootstrap implements BootstrapInterface
             'statistics/show' => 'statistic/statistics/show',
         ], false);
 
-        $app->setModule('statistic', 'vladbara705\statistics\Module');
+        $app->setModule('statistics', 'vladbara705\statistics\Module');
     }
 }
