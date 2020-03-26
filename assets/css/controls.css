@@ -1,0 +1,26 @@
+.controls {
+    float: right;
+}
+
+.custom-input {
+    height: 30px;
+    background-color: #FAF0E6;
+}
+
+.form-input {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.form-group {
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.button-control {
+    padding: 7px 10px 5px 10px !important;
+    margin-bottom: 15px;
+    box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.5);
+    background-color: #DCDCDC;
+    border-radius: 2px;
+}
