@@ -19,6 +19,10 @@ class Statistics extends Behavior
 
     public $uniqueUser;
 
+    private $userIp;
+
+    private $isRobot;
+
     /**
      * @return array
      */
@@ -34,23 +38,10 @@ class Statistics extends Behavior
      */
     public function onAfterAction()
     {
-        $currentAction = $this->owner->action->id;
-        if(in_array($currentAction, $this->actions) === false) return false;
+        $this->userIp = Yii::$app->request->userIP;
+        $this->isRobot = $this->isRobot();
 
-        if (!isset($this->type) || empty($this->type)) {
-            return false;
-        }
-
-        $params = Statistic::getParams();
-        $userIp = Yii::$app->request->userIP;
-        if (is_array($params['blackListIp']) && in_array($userIp, $params['blackListIp'])) return false;
-
-        if (isset($this->uniqueUser) && !empty($this->uniqueUser)) {
-            if (Statistic::findByIp($userIp)) return;
-        }
-
-        $isRobot = $this->isRobot();
-        if (empty($params['trackRobots']) && !empty($isRobot)) return false;
+        if (!$this->validate()) return false;
 
         $extraType = null;
         if ((is_array($this->type))) {
@@ -61,11 +52,35 @@ class Statistics extends Behavior
         }
 
         $model = new Statistic();
-        $model->ip = $userIp;
+        $model->ip = $this->userIp;
         $model->type = $type;
         $model->extraType = $extraType;
-        $model->isRobot = $isRobot;
+        $model->isRobot = $this->isRobot;
         $model->save();
+    }
+
+    /**
+     * @return bool
+     */
+    private function validate()
+    {
+        $currentAction = $this->owner->action->id;
+        if(in_array($currentAction, $this->actions) === false) return false;
+
+        if (!isset($this->type) || empty($this->type)) {
+            return false;
+        }
+
+        $params = Statistic::getParams();
+        if (is_array($params['blackListIp']) && in_array($this->userIp, $params['blackListIp'])) return false;
+
+        if (isset($this->uniqueUser) && !empty($this->uniqueUser)) {
+            if (Statistic::findByIp($this->userIp, $this->type)) return false;
+        }
+
+        if (empty($params['trackRobots']) && !empty($this->isRobot)) return false;
+
+        return true;
     }
 
     /**

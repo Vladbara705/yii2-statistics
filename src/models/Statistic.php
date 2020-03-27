@@ -45,19 +45,22 @@ class Statistic extends ActiveRecord
 
     /**
      * @param $ip
+     * @param $type
      * @return bool
      */
-    public static function findByIp($ip)
+    public static function findByIp($ip, $type)
     {
         $prepareTimezone = '+ INTERVAL ' . self::getParams()['timezoneUTC'] . ' HOUR';
         return self::find()
-            ->where(['=', 'ip', $ip])
+            ->where([
+                'ip' => $ip,
+                'type' => $type
+            ])
             ->andWhere(['=', 'DATE_FORMAT(datetime ' . $prepareTimezone . ', \'%Y:%m:%d\')', date('Y:m:d')])
             ->exists();
     }
 
     /**
-     * @param int $timezone
      * @return array
      */
     public static function getAll()
@@ -66,7 +69,6 @@ class Statistic extends ActiveRecord
         
         $query = new DbQuery();
         $query->select([
-            new Expression('@i:=@i+1 id'),
             'count(*) count',
             'type',
             'extraType',
@@ -74,7 +76,7 @@ class Statistic extends ActiveRecord
             'DATE_FORMAT(NOW() - INTERVAL if(extraType IS NULL, 1, 0) DAY' . $prepareTimezone . ' , \'%Y-%m-%d\') toDate',
             'DATE_FORMAT(NOW() ' . $prepareTimezone . ' , \'%Y-%m-%d\') fromDate'
         ]);
-        $query->from(['{{%statistic}}', '(SELECT @i:=0) x']);
+        $query->from(['{{%statistic}}']);
         $query->andWhere(['between', '`datetime` ' . $prepareTimezone,
             new Expression('DATE_FORMAT(NOW() - INTERVAL if(extraType IS NULL, 1, 0) DAY, \'%Y:%m:%d\')'),
             new Expression('DATE_FORMAT(NOW(), \'%Y:%m:%d %H:%i:%s\')')
@@ -85,7 +87,6 @@ class Statistic extends ActiveRecord
 
     /**
      * @param $request
-     * @param int $timezone
      * @return array
      */
     public static function getStatisticsByType($request)
@@ -93,13 +94,12 @@ class Statistic extends ActiveRecord
         $prepareTimezone = '+ INTERVAL ' . self::getParams()['timezoneUTC'] . ' HOUR';
         $query = new DbQuery();
         $query->select([
-            new Expression('@i:=@i+1 id'),
             'count(*) count',
             'type',
             'DATE_FORMAT(datetime ' . $prepareTimezone . ' , \'%Y-%m-%d\') datetime',
             'extraType'
         ]);
-        $query->from(['{{%statistic}}', '(SELECT @i:=0) x']);
+        $query->from(['{{%statistic}}']);
         $query->where(['type' => $request['type']]);
         if (!empty($request['toDate'] && !empty($request['fromDate']))) {
             $query->andWhere(['between', '`datetime` ' . $prepareTimezone,
