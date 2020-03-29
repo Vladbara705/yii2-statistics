@@ -26,7 +26,7 @@ array_push($counterUsers, 0);
         ]
     ],
     'data' => [
-        'labels' => array_column($statistic, 'datetime'),
+        'labels' => array_column($statistic, 'date'),
         'datasets' => [
             [
                 'label' => '',

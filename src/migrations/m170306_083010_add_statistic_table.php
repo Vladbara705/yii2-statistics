@@ -27,9 +27,8 @@ class m170306_083010_add_statistic_table extends Migration
 		], $tableOptions);
 
         $this->createIndex('type_idx', '{{%statistic}}', ['type'], false);
-        $this->createIndex('ip_idx', '{{%statistic}}', ['ip'], false);
-        $this->createIndex('type_datetime_idx', '{{%statistic}}', ['type', 'datetime'], false);
-
+        $this->createIndex('ip_type_idx', '{{%statistic}}', ['ip', 'type'], false);
+        $this->createIndex('datetime_idx', '{{%statistic}}', ['datetime'], false);
     }
 
     /**
