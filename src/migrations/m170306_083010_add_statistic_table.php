@@ -17,7 +17,7 @@ class m170306_083010_add_statistic_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         }
 
-		$this->createTable('{{%statistic}}', [
+		$this->createTable('{{%statistics}}', [
 			'id' => $this->primaryKey(),
 			'ip' => $this->string(15)->notNull(),
 			'type' => $this->string(100)->notNull(),
@@ -26,9 +26,9 @@ class m170306_083010_add_statistic_table extends Migration
             'datetime' => $this->timestamp()->notNull()
 		], $tableOptions);
 
-        $this->createIndex('type_idx', '{{%statistic}}', ['type'], false);
-        $this->createIndex('ip_type_idx', '{{%statistic}}', ['ip', 'type'], false);
-        $this->createIndex('datetime_idx', '{{%statistic}}', ['datetime'], false);
+        $this->createIndex('type_idx', '{{%statistics}}', ['type'], false);
+        $this->createIndex('ip_type_idx', '{{%statistics}}', ['ip', 'type'], false);
+        $this->createIndex('datetime_idx', '{{%statistics}}', ['datetime'], false);
     }
 
     /**
@@ -36,6 +36,6 @@ class m170306_083010_add_statistic_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%statistic}}');
+        $this->dropTable('{{%statistics}}');
     }
 }
