@@ -55,7 +55,7 @@ $ php yii migrate --migrationPath=@vendor/vladbara705/yii2-statistics/src/migrat
         'blackListIp' => [127.0.0.1, ...],
         'trackRobots' => true, // по умолчанию false
         'statisticsRoute' => 'statistics/test', // по умолчанию statistics
-        'enablePage' => false, // по умоланию true, используется для создания маршрута на страницу со статистикой
+        'enablePage' => false, // по умоланию false, используется для создания маршрута на страницу со статистикой
         'authData' => ['admin' => 'admin'], // по умолачнию null, если не указано 'authentication' => true - авторизация работать не будет
         'authentication' => true, // по умолчанию false
         'timezoneUTC' => 5 // смещение времени в часах, требуется, что-бы показыввать статистику в соответствующем часовом поясе, по умолчанию 0

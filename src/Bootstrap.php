@@ -15,7 +15,7 @@ class Bootstrap implements BootstrapInterface
      */
     public function bootstrap($app)
     {
-        $enablePage = isset($app->params['statistics']['enablePage']) ? $app->params['statistics']['enablePage'] : true;
+        $enablePage = isset($app->params['statistics']['enablePage']) ? $app->params['statistics']['enablePage'] : false;
         $statisticsRoute = isset($app->params['statistics']['statisticsRoute']) ? $app->params['statistics']['statisticsRoute'] : 'statistics';
 
         if ($enablePage) {
