@@ -14,11 +14,6 @@ use Yii;
  */
 class Statistic extends ActiveRecord
 {
-    public $type;
-    public $extraType;
-    public $isRobot;
-    public $ip;
-
     /**
      * @return string
      */
