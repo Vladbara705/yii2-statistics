@@ -101,7 +101,7 @@ class Statistics extends Behavior
         );
 
         foreach($bots as $bot) {
-            if (stripos($_SERVER['HTTP_USER_AGENT'], $bot) !== false) {
+            if (!empty($_SERVER['HTTP_USER_AGENT']) && stripos($_SERVER['HTTP_USER_AGENT'], $bot) !== false) {
                 return true;
             }
         }

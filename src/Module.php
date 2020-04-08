@@ -12,6 +12,10 @@ use yii\base\Module as BaseModule;
 class Module extends BaseModule
 {
     public $controllerNamespace = 'vladbara705\statistics\controllers';
+    /**
+     * @var string
+     */
+    public $defaultRoute;
 
     public function init()
     {

@@ -14,10 +14,10 @@ use Yii;
  */
 class Statistic extends ActiveRecord
 {
-    private $ip;
-    private $type;
-    private $isRobot;
-    private $extraType;
+    public $type;
+    public $extraType;
+    public $isRobot;
+    public $ip;
 
     /**
      * @return string
@@ -66,7 +66,7 @@ class Statistic extends ActiveRecord
     public static function getAll()
     {
         $prepareTimezone = '+ INTERVAL ' . self::getParams()['timezoneUTC'] . ' HOUR';
-        
+
         $query = new DbQuery();
         $query->select([
             'count(*) count',
@@ -122,7 +122,7 @@ class Statistic extends ActiveRecord
     public static function getParams()
     {
         $params = isset(Yii::$app->params['statistics']) ? Yii::$app->params['statistics'] : null;
-        
+
         return [
             'blackListIp' => isset($params['blackListIp']) ? $params['blackListIp'] : null,
             'trackRobots' => isset($params['trackRobots']) ? $params['trackRobots'] : false,
