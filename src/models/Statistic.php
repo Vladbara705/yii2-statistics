@@ -24,7 +24,7 @@ class Statistic extends ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%statistic}}';
+        return '{{%statistics}}';
     }
 
     /**
@@ -76,7 +76,7 @@ class Statistic extends ActiveRecord
             'DATE_FORMAT(NOW() - INTERVAL if(extraType IS NULL, 1, 0) DAY' . $prepareTimezone . ' , \'%Y-%m-%d\') toDate',
             'DATE_FORMAT(NOW() ' . $prepareTimezone . ' , \'%Y-%m-%d\') fromDate'
         ]);
-        $query->from(['{{%statistic}}']);
+        $query->from(['{{%statistics}}']);
         $query->andWhere(['between', '`datetime` ' . $prepareTimezone,
             new Expression('DATE_FORMAT(NOW() - INTERVAL if(extraType IS NULL, 1, 0) DAY, \'%Y:%m:%d\')'),
             new Expression('DATE_FORMAT(NOW(), \'%Y:%m:%d %H:%i:%s\')')
@@ -99,7 +99,7 @@ class Statistic extends ActiveRecord
             'DATE_FORMAT(datetime ' . $prepareTimezone . ' , \'%Y-%m-%d\') date',
             'extraType'
         ]);
-        $query->from(['{{%statistic}}']);
+        $query->from(['{{%statistics}}']);
         $query->where(['type' => $request['type']]);
         if (!empty($request['toDate'] && !empty($request['fromDate']))) {
             $query->andWhere(['between', '`datetime` ' . $prepareTimezone,
